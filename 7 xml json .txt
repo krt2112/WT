@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cricket Score</title>
+  <style>
+    body { font-family: sans-serif; background: #222; color: #fff; text-align: center; padding: 30px; }
+    .card { background: #eee; color: #000; padding: 20px; margin: 20px auto; width: 250px; border-radius: 10px; }
+    button { padding: 8px 16px; margin-top: 10px; border: none; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>JSON Score</h2>
+    <p>Runs: <span id="jsonRuns"></span></p>
+    <p>Wickets: <span id="jsonWickets"></span></p>
+    <p>Overs: <span id="jsonOvers"></span></p>
+    <button onclick="fetchJson()">Fetch JSON</button>
+  </div>
+
+  <div class="card">
+    <h2>XML Score</h2>
+    <p>Runs: <span id="xmlRuns"></span></p>
+    <p>Wickets: <span id="xmlWickets"></span></p>
+    <p>Overs: <span id="xmlOvers"></span></p>
+    <button onclick="fetchXml()">Fetch XML</button>
+  </div>
+
+  <script>
+    const rnd = () => Math.floor(Math.random() * 201);
+    const rWk = () => Math.floor(Math.random() * 11);
+    const rOv = () => `${Math.floor(Math.random() * 50)}.${Math.floor(Math.random() * 6)}`;
+
+    function fetchJson() {
+      document.getElementById("jsonRuns").textContent = rnd();
+      document.getElementById("jsonWickets").textContent = rWk();
+      document.getElementById("jsonOvers").textContent = rOv();
+    }
+
+    function fetchXml() {
+      let xml = `<score><runs>${rnd()}</runs><wickets>${rWk()}</wickets><overs>${rOv()}</overs></score>`;
+      let doc = new DOMParser().parseFromString(xml, "application/xml");
+      document.getElementById("xmlRuns").textContent = doc.querySelector("runs").textContent;
+      document.getElementById("xmlWickets").textContent = doc.querySelector("wickets").textContent;
+      document.getElementById("xmlOvers").textContent = doc.querySelector("overs").textContent;
+    }
+  </script>
+
+</body>
+</html>
